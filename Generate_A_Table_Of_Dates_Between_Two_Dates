@@ -1,0 +1,28 @@
+--Create a table to store dates
+CREATE TABLE [DataSet].days (
+    Calendar_Date DATE);
+
+--Declare Variables
+DECLARE Year INT64;
+DECLARE Start_Date DATE;
+DECLARE End_Date DATE;
+
+--Set Variables
+SET Year = 2023;
+SET Start_Date = DATE(Year, 1, 1);
+SET End_Date = DATE_ADD(Start_Date, INTERVAL 1 Year);
+
+--Look through days in a year
+WHILE Start_Date <= End_Date
+    DO
+        INSERT INTO [DataSet].days VALUES(Start_Date);
+        SET Start_Date = DATE_ADD(Start_Date, INTERVAL 1 DAY);
+    END WHILE
+
+--Select results from Table if you want to see the days.
+SELECT Calendar_Date Start_Date--,
+    --DATE_ADD(Calendar_Date, INTERVAL 1 DAY),
+    --TIMESTAMP(Calendar_Date, "America/New_York"),
+    --TIMESTAMP(DATE_ADD(Calendar_Date, INTERVAL 1 DAY), "America/New_York"),
+    --TIMESTAMP_DIFF(TIMESTAMP(Calendar_Date, "America/New_York"), TIMESTAMP(DATE_ADD(Calendar_Date, INTERVAL 1 DAY), "America/New_York"), SECOND)
+FROM [DataSet].days
